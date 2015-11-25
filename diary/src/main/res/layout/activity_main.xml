@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <DatePicker
+        android:layout_width="match_parent"
+        android:layout_height="386dp"
+        android:id = "@+id/dataPicker1"
+        android:calendarViewShown="false">
+    </DatePicker>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        android:id = "@+id/edtDiary"
+        android:background="#00ff00"
+        android:lines="8"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnWrite"
+        android:enabled="false"
+        android:text="Button"/>
+</LinearLayout>
