@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     EditText edtUr1;
     Button btnGo,btnBack;
     WebView web;
-
+    String http = "http://";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,22 +40,21 @@ public class MainActivity extends AppCompatActivity {
         btnGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (edtUr1.getText().toString() != "http://*")
-                    web.loadUrl("http://" + edtUr1.getText().toString());
-                else if (edtUr1.getText().toString() == "http://*")
+                if (edtUr1.getText().toString().startsWith(http))
                     web.loadUrl(edtUr1.getText().toString());
-                //edtUr1.setText(v.getRootView().toString());
-            }
-        });
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+                else
+                    web.loadUrl(http +edtUr1.getText().toString());
+                }
+            });
+            btnBack.setOnClickListener(new View.OnClickListener() {
+                public void onClick (View v){
                 web.goBack();
             }
-        });
-        web.setWebViewClient(new CookWebViewClient());
-    }
+            });
+            web.setWebViewClient(new CookWebViewClient());
+        }
 
-    class CookWebViewClient extends WebViewClient{
+        class CookWebViewClient extends WebViewClient{
 
         public void onPageFinished(WebView view,String url){
             super.onPageFinished(view,url);
@@ -64,8 +63,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public boolean shouldOverrideUrlLoading(WebView view,String url) {
-            view.loadUrl(url);
-            return false;
+            return super.shouldOverrideUrlLoading(view, url);
         }
 
 
