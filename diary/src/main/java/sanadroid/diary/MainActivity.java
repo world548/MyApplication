@@ -39,22 +39,35 @@ public class MainActivity extends AppCompatActivity {
         int cMonth = cal.get(Calendar.MONTH);
         int cDay = cal.get(Calendar.DAY_OF_MONTH);
 
+        fileName = Integer.toString(cYear) +"_" + Integer.toString(cMonth +1) + "_" + Integer.toString(cDay) + ".txt";
+        String str = readDiary(fileName);
+        if(str!=null){
+            edtDiary.setText(str);
+            btnWrite.setText("수정");
+            btnWrite.setEnabled(true);
+        }
+
         dp.init(cYear,cMonth,cDay,new DatePicker.OnDateChangedListener(){
             public void onDateChanged(DatePicker view,int year,int monthOfYear,int dayOfMonth){
                 fileName = Integer.toString(year) +"_" + Integer.toString(monthOfYear +1) + "_" + Integer.toString(dayOfMonth) + ".txt";
                 String str = readDiary(fileName);
+                if(str!=null){
+                    edtDiary.setText(str);
+                    btnWrite.setText("수정");
+                    btnWrite.setEnabled(true);
+                }
                 edtDiary.setText(str);
                 btnWrite.setEnabled(true);
             }
         });
-      btnWrite.setOnClickListener(new View.OnClickListener(){
-          public void onClick(View v){
-              try{
-                  FileOutputStream outFs = openFileOutput(fileName,Context.MODE_WORLD_WRITEABLE);
-                  String str = edtDiary.getText().toString();
-                  outFs.write(str.getBytes());
-                  outFs.close();
-                  Toast.makeText(getApplicationContext(),fileName+"이 저장됨",Toast.LENGTH_SHORT).show();
+        btnWrite.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    FileOutputStream outFs = openFileOutput(fileName, Context.MODE_WORLD_WRITEABLE);
+                    String str = edtDiary.getText().toString();
+                    outFs.write(str.getBytes());
+                    outFs.close();
+                    Toast.makeText(getApplicationContext(),fileName+"이 저장됨",Toast.LENGTH_SHORT).show();
               }catch (IOException e){}
           }
       });
